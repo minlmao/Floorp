@@ -262,11 +262,11 @@ pref("browser.touchmode.auto", true);
 pref("browser.compactmode.show", false);
 
 // At startup, check if we're the default browser and prompt user if not.
-pref("browser.shell.checkDefaultBrowser", true);
+pref("browser.shell.checkDefaultBrowser", false);
 pref("browser.shell.shortcutFavicons",true);
 pref("browser.shell.mostRecentDateSetAsDefault", "");
 pref("browser.shell.skipDefaultBrowserCheckOnFirstRun", true);
-pref("browser.shell.didSkipDefaultBrowserCheckOnFirstRun", false);
+pref("browser.shell.didSkipDefaultBrowserCheckOnFirstRun", true);
 pref("browser.shell.defaultBrowserCheckCount", 0);
 #if defined(XP_WIN)
 // Attempt to set the default browser on Windows 10 using the UserChoice registry keys,
@@ -288,7 +288,7 @@ pref("browser.shell.defaultBrowserAgent.thanksURL", "https://www.mozilla.org/%LO
 
 // 0 = blank, 1 = home (browser.startup.homepage), 2 = last visited page, 3 = resume previous browser session
 // The behavior of option 3 is detailed at: http://wiki.mozilla.org/Session_Restore
-pref("browser.startup.page",                1);
+pref("browser.startup.page",                3);
 pref("browser.startup.homepage",            "about:home");
 pref("browser.startup.homepage.abouthome_cache.enabled", true);
 pref("browser.startup.homepage.abouthome_cache.loglevel", "Warn");
@@ -329,7 +329,7 @@ pref("browser.warnOnQuit", true);
 #if defined(XP_WIN)
   pref("browser.warnOnQuitShortcut", false);
 #else
-  pref("browser.warnOnQuitShortcut", true);
+  pref("browser.warnOnQuitShortcut", false);
 #endif
 
 // TODO bug 1702563: Renable fullscreen autohide by default on macOS.
@@ -500,7 +500,7 @@ pref("browser.urlbar.showSearchSuggestionsFirst", true);
 // is longer than this.
 pref("browser.urlbar.maxCharsForSearchSuggestions", 100);
 
-pref("browser.urlbar.trimURLs", true);
+pref("browser.urlbar.trimURLs", false);
 
 // If changed to true, copying the entire URL from the location bar will put the
 // human readable (percent-decoded) URL on the clipboard.
@@ -838,8 +838,6 @@ pref("security.allow_parent_unrestricted_js_loads", false);
 // Unload tabs when available memory is running low
 #if defined(XP_MACOSX) || defined(XP_WIN)
     pref("browser.tabs.unloadOnLowMemory", true);
-#else
-    pref("browser.tabs.unloadOnLowMemory", false);
 #endif
 
 // Tab Unloader does not unload tabs whose last inactive period is longer than
@@ -1029,6 +1027,8 @@ pref("browser.history_swipe_animation.disabled", false);
   // is better for consistency with macOS users.
   pref("mousewheel.with_shift.action", 4);
   pref("mousewheel.with_alt.action", 2);
+  pref("mousewheel.with_control.action",3);
+  pref("mousewheel.with_meta.action", 1); // win key on Win, Super/Hyper on Linux
 #endif
 
 pref("mousewheel.with_win.action", 1);
@@ -1390,7 +1390,7 @@ pref("services.sync.prefs.sync.accessibility.browsewithcaret", true);
 pref("services.sync.prefs.sync.accessibility.typeaheadfind", true);
 pref("services.sync.prefs.sync.accessibility.typeaheadfind.linksonly", true);
 pref("services.sync.prefs.sync.addons.ignoreUserEnabledChanges", true);
-pref("services.sync.prefs.sync.app.shield.optoutstudies.enabled", true);
+pref("services.sync.prefs.sync.app.shield.optoutstudies.enabled", false);
 // The addons prefs related to repository verification are intentionally
 // not synced for security reasons. If a system is compromised, a user
 // could weaken the pref locally, install an add-on from an untrusted
@@ -1400,17 +1400,17 @@ pref("services.sync.prefs.sync.browser.contentblocking.category", true);
 pref("services.sync.prefs.sync.browser.contentblocking.features.strict", true);
 pref("services.sync.prefs.sync.browser.crashReports.unsubmittedCheck.autoSubmit2", true);
 pref("services.sync.prefs.sync.browser.ctrlTab.sortByRecentlyUsed", true);
-pref("services.sync.prefs.sync.browser.discovery.enabled", true);
+pref("services.sync.prefs.sync.browser.discovery.enabled", false);
 pref("services.sync.prefs.sync.browser.download.useDownloadDir", true);
-pref("services.sync.prefs.sync.browser.firefox-view.feature-tour", true);
+pref("services.sync.prefs.sync.browser.firefox-view.feature-tour", false);
 pref("services.sync.prefs.sync.browser.formfill.enable", true);
 pref("services.sync.prefs.sync.browser.link.open_newwindow", true);
 pref("services.sync.prefs.sync.browser.menu.showViewImageInfo", true);
 pref("services.sync.prefs.sync.browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons", true);
 pref("services.sync.prefs.sync.browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features", true);
 pref("services.sync.prefs.sync.browser.newtabpage.activity-stream.showSearch", true);
-pref("services.sync.prefs.sync.browser.newtabpage.activity-stream.showSponsored", true);
-pref("services.sync.prefs.sync.browser.newtabpage.activity-stream.showSponsoredTopSites", true);
+pref("services.sync.prefs.sync.browser.newtabpage.activity-stream.showSponsored", false);
+pref("services.sync.prefs.sync.browser.newtabpage.activity-stream.showSponsoredTopSites", false);
 pref("services.sync.prefs.sync.browser.newtabpage.activity-stream.feeds.topsites", true);
 pref("services.sync.prefs.sync.browser.newtabpage.activity-stream.topSitesRows", true);
 pref("services.sync.prefs.sync.browser.newtabpage.activity-stream.feeds.snippets", true);
@@ -1506,6 +1506,52 @@ pref("services.sync.prefs.sync.signon.rememberSignons", true);
 pref("services.sync.prefs.sync.spellchecker.dictionary", true);
 pref("services.sync.prefs.sync.ui.osk.enabled", true);
 
+pref("privacy.donottrackheader.enabled", true);
+pref("privacy.globalprivacycontrol.enabled", true);
+pref("privacy.globalprivacycontrol.functionality.enabled", true);
+pref("toolkit.telemetry.pioneer-new-studies-available", false);
+pref("browser.newtabpage.activity-stream.showSponsored", false);
+pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
+pref("browser.newtabpage.activity-stream.topSitesRows", 2);
+pref("browser.newtabpage.activity-stream.section.highlights.includePocket", false);
+pref("browser.newtabpage.activity-stream.feeds.section.highlights", false);
+pref("browser.newtabpage.activity-stream.feeds.snippets", true);
+pref("general.smoothScroll", true);
+pref("layers.acceleration.force-enabled", true);
+pref("browser.menu.showViewImageInfo", true);
+pref("image.avif.enabled", true);
+pref("image.jxl.enabled", true);
+pref("media.eme.enabled", true);
+pref("general.useragent.compatMode.firefox", true);
+pref("nglayout.initialpaint.delay", 0); // default=5; used to be 250
+pref("nglayout.initialpaint.delay_in_oopif", 0); // default=5
+pref("content.notify.interval", 100000); // (.10s); default=120000 (.12s)
+pref("layout.css.grid-template-masonry-value.enabled", true);
+pref("dom.enable_web_task_scheduling", true);
+pref("layout.css.has-selector.enabled", true);
+pref("gfx.canvas.accelerated.cache-items", 4096); // default=2048; alt=8192
+pref("gfx.canvas.accelerated.cache-size", 512); // default=256; alt=1024
+pref("gfx.content.skia-font-cache-size", 20); // default=5; Chrome=20
+pref("media.memory_cache_max_size", 65536); // default=8192; AF=65536; alt=131072
+pref("media.cache_readahead_limit", 7200); // 120 min; default=60; stop reading ahead when our buffered data is this many seconds ahead of the current playback
+pref("media.cache_resume_threshold", 3600); // 60 min; default=30; when a network connection is suspended, don't resume it until the amount of buffered data falls below this threshold
+pref("image.mem.decode_bytes_at_a_time", 32768); // default=16384; alt=65536; chunk size for calls to the image decoders
+pref("network.buffer.cache.size", 262144); // 256 kb; default=32768 (32 kb)
+pref("network.buffer.cache.count", 128); // default=24
+pref("network.http.max-connections", 1800); // default=900
+pref("network.http.max-persistent-connections-per-server", 10); // default=6; download connections; anything above 10 is excessive
+pref("network.http.max-urgent-start-excessive-connections-per-host", 5); // default=3
+pref("network.websocket.max-connections", 400); // default=200
+pref("network.http.pacing.requests.enabled", false);
+pref("network.dnsCacheEntries", 10000); // default=400
+pref("network.dnsCacheExpiration", 86400); // keep entries for 1 day; alt=3600 (1 hour)
+pref("network.dns.max_high_priority_threads", 8); // default=5
+pref("network.ssl_tokens_cache_capacity", 20480); // default=2048; more TLS token caching (fast reconnects)
+pref("network.http.speculative-parallel-limit", 0);
+pref("network.dns.disablePrefetch", true);
+pref("network.prefetch-next", false);
+pref("network.predictor.enabled", false);
+pref("network.predictor.enable-prefetch", false);
 // A preference which, if false, means sync will only apply incoming preference
 // changes if there's already a local services.sync.prefs.sync.* control pref.
 // If true, all incoming preferences will be applied and the local "control
@@ -1533,7 +1579,7 @@ pref("prompts.defaultModalType", 3);
 
 pref("browser.topsites.useRemoteSetting", true);
 // Fetch sponsored Top Sites from Mozilla Tiles Service (Contile)
-pref("browser.topsites.contile.enabled", true);
+pref("browser.topsites.contile.enabled", false);
 pref("browser.topsites.contile.endpoint", "https://contile.services.mozilla.com/v1/tiles");
 
 // Whether to enable the Share-of-Voice feature for Sponsored Topsites via Contile.
@@ -1602,7 +1648,7 @@ pref("browser.newtabpage.activity-stream.discoverystream.hybridLayout.enabled", 
 pref("browser.newtabpage.activity-stream.discoverystream.hideCardBackground.enabled", false);
 pref("browser.newtabpage.activity-stream.discoverystream.fourCardLayout.enabled", false);
 pref("browser.newtabpage.activity-stream.discoverystream.newFooterSection.enabled", false);
-pref("browser.newtabpage.activity-stream.discoverystream.saveToPocketCard.enabled", true);
+pref("browser.newtabpage.activity-stream.discoverystream.saveToPocketCard.enabled", false);
 pref("browser.newtabpage.activity-stream.discoverystream.saveToPocketCardRegions", "");
 pref("browser.newtabpage.activity-stream.discoverystream.hideDescriptions.enabled", false);
 pref("browser.newtabpage.activity-stream.discoverystream.hideDescriptionsRegions", "");
@@ -1631,7 +1677,7 @@ pref("browser.newtabpage.activity-stream.discoverystream.spocTopsitesAdTypes", "
 pref("browser.newtabpage.activity-stream.discoverystream.spocTopsitesZoneIds", "");
 pref("browser.newtabpage.activity-stream.discoverystream.spocSiteId", "");
 
-pref("browser.newtabpage.activity-stream.discoverystream.sendToPocket.enabled", true);
+pref("browser.newtabpage.activity-stream.discoverystream.sendToPocket.enabled", false);
 
 // List of regions that do not get stories, regardless of locale-list-config.
 pref("browser.newtabpage.activity-stream.discoverystream.region-stories-block", "");
@@ -1658,14 +1704,14 @@ pref("browser.newtabpage.activity-stream.discoverystream.personalization.modelKe
 // System pref to allow Pocket stories personalization to be turned on/off.
 pref("browser.newtabpage.activity-stream.discoverystream.recs.personalized", false);
 // System pref to allow Pocket sponsored content personalization to be turned on/off.
-pref("browser.newtabpage.activity-stream.discoverystream.spocs.personalized", true);
+pref("browser.newtabpage.activity-stream.discoverystream.spocs.personalized", false);
 
 // Flip this once the user has dismissed the Pocket onboarding experience,
 pref("browser.newtabpage.activity-stream.discoverystream.onboardingExperience.dismissed", false);
 pref("browser.newtabpage.activity-stream.discoverystream.onboardingExperience.enabled", false);
 
 // User pref to show stories on newtab (feeds.system.topstories has to be set to true as well)
-pref("browser.newtabpage.activity-stream.feeds.section.topstories", true);
+pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
 
 // The pref controls if search hand-off is enabled for Activity Stream.
 pref("browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar", true);
@@ -1864,21 +1910,21 @@ pref("browser.translations.enable", true);
 
 // Telemetry settings.
 // Determines if Telemetry pings can be archived locally.
-pref("toolkit.telemetry.archive.enabled", true);
+pref("toolkit.telemetry.archive.enabled", false);
 // Enables sending the shutdown ping when Firefox shuts down.
-pref("toolkit.telemetry.shutdownPingSender.enabled", true);
+pref("toolkit.telemetry.shutdownPingSender.enabled", false);
 // Enables using the `pingsender` background task.
 pref("toolkit.telemetry.shutdownPingSender.backgroundtask.enabled", false);
 // Enables sending the shutdown ping using the pingsender from the first session.
 pref("toolkit.telemetry.shutdownPingSender.enabledFirstSession", false);
 // Enables sending a duplicate of the first shutdown ping from the first session.
-pref("toolkit.telemetry.firstShutdownPing.enabled", true);
+pref("toolkit.telemetry.firstShutdownPing.enabled", false);
 // Enables sending the 'new-profile' ping on new profiles.
-pref("toolkit.telemetry.newProfilePing.enabled", true);
+pref("toolkit.telemetry.newProfilePing.enabled", false);
 // Enables sending 'update' pings on Firefox updates.
-pref("toolkit.telemetry.updatePing.enabled", true);
+pref("toolkit.telemetry.updatePing.enabled", false);
 // Enables sending 'bhr' pings when the browser hangs.
-pref("toolkit.telemetry.bhrPing.enabled", true);
+pref("toolkit.telemetry.bhrPing.enabled", false);
 
 // Ping Centre Telemetry settings.
 pref("browser.ping-centre.telemetry", true);
@@ -2221,7 +2267,7 @@ pref("browser.device-migration.help-menu.hidden", false);
 pref("extensions.pocket.api", "api.getpocket.com");
 pref("extensions.pocket.bffApi", "firefox-api-proxy.cdn.mozilla.net");
 pref("extensions.pocket.bffRecentSaves", true);
-pref("extensions.pocket.enabled", true);
+pref("extensions.pocket.enabled", false);
 pref("extensions.pocket.oAuthConsumerKey", "40249-e88c401e1b1f2242d9e441c4");
 pref("extensions.pocket.oAuthConsumerKeyBff", "94110-6d5ff7a89d72c869766af0e0");
 pref("extensions.pocket.site", "getpocket.com");
@@ -2229,7 +2275,7 @@ pref("extensions.pocket.onSaveRecs", true);
 pref("extensions.pocket.onSaveRecs.locales", "en-US,en-GB,en-CA");
 
 // Enable Pocket button home panel for non link pages.
-pref("extensions.pocket.showHome", true);
+pref("extensions.pocket.showHome", false);
 
 // Control what version of the logged out doorhanger is displayed
 // Possibilities are: `control`, `control-one-button`, `variant_a`, `variant_b`, `variant_c`
@@ -2361,8 +2407,8 @@ pref("toolkit.coverage.enabled", false);
 pref("toolkit.coverage.endpoint.base", "https://coverage.mozilla.org");
 
 // Discovery prefs
-pref("browser.discovery.enabled", true);
-pref("browser.discovery.containers.enabled", true);
+pref("browser.discovery.enabled", false);
+pref("browser.discovery.containers.enabled", false);
 pref("browser.discovery.sites", "addons.mozilla.org");
 
 pref("browser.engagement.recent_visited_origins.expiry", 86400); // 24 * 60 * 60 (24 hours in seconds)
@@ -2373,7 +2419,7 @@ pref("browser.engagement.sidebar-button.has-used", false);
 pref("browser.engagement.library-button.has-used", false);
 pref("browser.engagement.ctrlTab.has-used", false);
 
-pref("browser.aboutConfig.showWarning", true);
+pref("browser.aboutConfig.showWarning", false);
 
 pref("browser.toolbars.keyboard_navigation", true);
 
@@ -2381,7 +2427,7 @@ pref("browser.toolbars.keyboard_navigation", true);
 // "newtab": Show on the New Tab Page
 // "always": Always show
 // "never": Never show
-pref("browser.toolbars.bookmarks.visibility", "newtab");
+pref("browser.toolbars.bookmarks.visibility", "always");
 
 // Visibility of the "Show Other Bookmarks" menuitem in the
 // bookmarks toolbar contextmenu.
