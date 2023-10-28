@@ -5,7 +5,11 @@ ac_add_options --disable-maintenance-service
 ac_add_options --enable-proxy-bypass-protection
 ac_add_options --enable-unverified-updates
 ac_add_options --enable-update-channel=release
-ac_add_options --enable-optimize="-O2 -Qvec -w -clang:-ftree-vectorize -clang:-msse3 -clang:-mssse3 -clang:-msse4.1 -clang:-mtune=haswell"
+
+ac_add_options --enable-lto
+ac_add_options --enable-wasm-avx
+ac_add_options --enable-optimize="-O2 -O3 -march=x86-64-v3 -Xclang -O3"
+
 ac_add_options --disable-tests
 ac_add_options --enable-rust-simd
 ac_add_options --enable-release
